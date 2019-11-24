@@ -1,0 +1,181 @@
+#-*- coding:utf-8 -*-
+
+<MyScreenManager>:
+    MainScreen:
+    SelectionScreen:
+    ResultScreen:
+
+<MainScreen>:
+    name: 'Main'
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size 
+    BoxLayout:
+        orientation: 'vertical'
+        GridLayout:
+            cols: 3
+            size_hint: 1, .2
+            spacing: 10
+            padding: 10
+            Label:
+                color: 0, 0, 0, 1
+                font_name: root.font_name
+                canvas.before:
+                    Color:
+                        rgba: 0.9, 0.9, 0.9, 0.9
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                id: season
+            Label:
+                color: 0, 0, 0, 1
+                font_name: root.font_name
+                canvas.before:
+                    Color:
+                        rgba: 0.95, 0.95, 0.95, 0.95
+                    Rectangle:
+                        pos: self.pos 
+                        size: self.size
+                id: weather
+            Label:
+                color: 0, 0, 0, 1
+                font_name: root.font_name
+                canvas.before:
+                    Color:
+                        rgba: 0.9, 0.9, 0.9, 0.9
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                id: timelabel
+        Label:
+            color: 0, 0, 0, 1
+            font_name: root.font_name
+            size_hint: 1, .6
+            text: root.title
+            font_size: 60
+        Button:
+            size_hint: 1, .2
+            background_color: root.buttoncolor
+            on_release: root.go_start()
+            text: "START"
+
+
+<SelectionScreen>:
+    name: 'Selection'
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    AnchorLayout:
+        background_color: (1,1,1,1)
+        anchor_x: 'center'
+        anchor_y: 'center'
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 10
+            padding: 10
+            size_hint: .8, .5
+            Label:
+                color: 0, 0, 0, 1
+                id: lab
+                text: root.question
+                font_name: root.font_name
+
+            ToggleButton:
+                id: yes
+                text: root.ystr
+                background_color: root.togglebuttoncolor
+                group: 'g1'
+                font_name: root.font_name
+            
+            ToggleButton:
+                id: no
+                text: root.nostr
+                background_color: root.togglebuttoncolor
+                group: 'g1'
+                font_name: root.font_name
+
+            ToggleButton:
+                id: nomatter
+                text: root.nmstr
+                background_color: root.togglebuttoncolor
+                group: 'g1'
+                font_name: root.font_name
+
+            Button:
+                id: next
+                text: root.nextstr
+                background_color: root.buttoncolor
+                on_release: root.go_next()
+                disabled: root.ids.yes.state == 'normal' and root.ids.no.state == 'normal' and root.ids.nomatter.state == 'normal'
+                font_name: root.font_name
+
+<ResultScreen>:
+    name: 'Result'
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout: 
+        orientation: 'vertical'
+        spacing: 10
+        padding: 10
+
+        Label:
+            id: bac
+            font_name: root.font_name
+            text: "Today's best pick"
+            color: 0, 0, 0, 1
+        
+        ToggleButton:
+            id: st1
+            font_name: root.font_name
+
+        
+        ToggleButton:
+            id: st2
+            text: "2nd. "+root.txt[1]
+            font_name: root.font_name
+
+        
+        ToggleButton:
+            id: st3
+            text: "3rd. "+root.txt[2]
+            font_name: root.font_name
+
+        
+        ToggleButton:
+            id: st4
+            text: "4th. "+root.txt[3]
+            font_name: root.font_name
+
+
+        ToggleButton:
+            id: st5
+            text: "5th. "+root.txt[4]
+            font_name: root.font_name
+ 
+
+        GridLayout:
+            cols: 2
+            Button:
+                id: f1
+                text: "Good"
+                font_name: root.font_name
+                background_color: root.buttoncolor
+                on_release: root.go_restart()
+            Button:
+                id : f2
+                text: "Bad"
+                font_name: root.font_name
+                background_color: root.buttoncolor
+                on_release: root.go_restart()
